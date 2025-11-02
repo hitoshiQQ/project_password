@@ -36,3 +36,16 @@ def parse_args():
     p.add_argument('--specials', dest='specials', action='store_true',  help='включить спецсимволы')
     p.set_defaults(letters = True, digits = True, specials = False)
     return p.parse_args()
+
+def main():
+    args = parse_args()
+    try:
+        charset = make_charset(args.letters, args.digits, args.specials)
+        for i in range(1, args.number + 1):
+            print(f'{i:2d}: {generate_password(args.length, charset)}')
+    except ValueError as e:
+        print('Ошибка:', e, file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
