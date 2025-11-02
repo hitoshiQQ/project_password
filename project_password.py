@@ -21,3 +21,15 @@ def make_charset(use_letters = True, use_digits = True, use_specials=False):
         chars += string.punctuation   # '!@#$%^&*()_+...'
     return chars
 
+#Генерирует один пароль заданной длины.
+# Проверяет, что длина положительная и набор символов не пустой.
+# Затем с помощью secrets.choice() выбирает каждый символ случайно из charset.
+# secrets.choice() безопасен — он не предсказуем, в отличие от random.choice().
+# Результат — строка, состоящая из length случайных символов.
+def generate_password(length, charset):
+    if length <= 0:
+        raise ValueError("Длина должна быть положительной")
+    if not charset:
+        raise ValueError('Charset пуст!')
+    return ''.join(secrets.choice(charset) for _ in range(length))
+
