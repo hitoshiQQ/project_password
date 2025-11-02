@@ -8,9 +8,6 @@ DEFAULT_LENGTH = 12
 DEFAULT_COUNT = 5
 
 # Эта функция собирает «набор символов» — алфавит, из которого будут случайно выбираться символы для пароля.
-# В зависимости от аргументов пользователь может включить или выключить разные типы символов.
-# Если пользователь не выберет ничего (например, выключит и буквы, и цифры), 
-# функция вернёт пустую строку — программа позже отловит это и покажет ошибку.
 def make_charset(use_letters = True, use_digits = True, use_specials=False):
     chars = ''
     if use_letters:
@@ -22,10 +19,6 @@ def make_charset(use_letters = True, use_digits = True, use_specials=False):
     return chars
 
 #Генерирует один пароль заданной длины.
-# Проверяет, что длина положительная и набор символов не пустой.
-# Затем с помощью secrets.choice() выбирает каждый символ случайно из charset.
-# secrets.choice() безопасен — он не предсказуем, в отличие от random.choice().
-# Результат — строка, состоящая из length случайных символов.
 def generate_password(length, charset):
     if length <= 0:
         raise ValueError("Длина должна быть положительной")
@@ -33,3 +26,13 @@ def generate_password(length, charset):
         raise ValueError('Charset пуст!')
     return ''.join(secrets.choice(charset) for _ in range(length))
 
+#Создаёт CLI-интерфейс
+def parse_args():
+    p = argparse.ArgumentParser(description='Генератор паролей')
+    p.add_argument('-l', '--length', type=int, default=12, help='длина пароля')
+    p.add_argument('-n', '--number', type=int, default=5, help='количество паролей')
+    p.add_argument('--no-letters', dest='letters', action='store_false',help='не включать буквы')
+    p.add_argument('--no-digits', dest='digits', action='store_false',help='не включать цифры')
+    p.add_argument('--specials', dest='specials', action='store_true',  help='включить спецсимволы')
+    p.set_defaults(letters = True, digits = True, specials = False)
+    return p.parse_args()
