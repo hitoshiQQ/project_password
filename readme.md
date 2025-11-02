@@ -24,6 +24,7 @@ Python 3.8+ обязателен.
 Скачайте или клонируйте репозиторий:
 
 git clone https://github.com/hitoshiQQ/project_password.git
+
 cd project_password
 
 
