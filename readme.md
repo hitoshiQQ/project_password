@@ -32,8 +32,8 @@ cd project_password
 
 🧠 Использование
 Запуск с настройками по умолчанию
-python password_generator.py
-
+python project_password.py
+ 
 
 По умолчанию:
 
